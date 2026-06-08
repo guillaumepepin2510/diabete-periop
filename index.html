@@ -325,9 +325,7 @@ alertes:[
 
 "METFORMINE":{
 classe:"BIGUANIDE",
-recommandations:[
-"Suivre protocole standard"
-],
+recommandations:[],
 alertes:[]
 },
 
@@ -466,13 +464,23 @@ let conduitePersonnalisee = "";
 if(
 traitements.includes("METFORMINE")
 &&
-intervention === "2 repas"
+intervention.includes("1 repas")
 ){
 
-conduitePersonnalisee += `
-<li>
-METFORMINE : suspendre le traitement pendant la période de jeûne
-</li>
+recommandationsGenerales += `
+<li>METFORMINE : pas d'arrêt nécessaire</li>
+`;
+
+}
+
+if(
+traitements.includes("METFORMINE")
+&&
+intervention.includes("2 repas")
+){
+
+recommandationsGenerales += `
+<li>METFORMINE : arrêt du traitement pendant la période de jeûne</li>
 `;
 
 }
