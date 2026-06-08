@@ -425,59 +425,69 @@ document.querySelectorAll(".traitement")
 .map(x => x.value.trim().toUpperCase())
 .filter(x => x !== "");
 
-const recommandations =
-new Set();
-
-const alertes =
-new Set();
+let recommandationsParMedicament = "";
+let alertesParMedicament = "";
 
 traitements.forEach(traitement => {
 
 if(medicaments[traitement]){
 
-medicaments[traitement]
-.recommandations
-.forEach(r =>
-recommandations.add(r)
-);
+recommandationsParMedicament += `
+<h4>${traitement}</h4>
+<ul>
+${medicaments[traitement].recommandations
+.map(r => `<li>${r}</li>`)
+.join("")}
+</ul>
+`;
 
-medicaments[traitement]
-.alertes
-.forEach(a =>
-alertes.add(a)
-);
+if(medicaments[traitement].alertes.length){
+
+alertesParMedicament += `
+<h4>${traitement}</h4>
+<ul>
+${medicaments[traitement].alertes
+.map(a => `<li>${a}</li>`)
+.join("")}
+</ul>
+`;
+
+}
 
 }
 
 });
 
+let recommandationsGenerales = "";
+let alertesGenerales = "";
+
 if(typeDiabete === "DT1"){
 
-alertes.add(
-"Ne jamais arrêter l'insuline basale"
-);
+alertesGenerales += `
+<li>DT1 : ne jamais arrêter l'insuline basale</li>
+`;
 
 }
 
 if(jeuneProlonge){
 
-recommandations.add(
-"Apport glucosé IV à prévoir selon protocole"
-);
+recommandationsGenerales += `
+<li>Jeûne prolongé : prévoir apport glucosé IV selon protocole</li>
+`;
 
 }
 
 if(pompeInsuline){
 
-alertes.add(
-"Vérifier protocole spécifique pompe à insuline"
-);
+alertesGenerales += `
+<li>Pompe à insuline : appliquer le protocole spécifique</li>
+`;
 
 }
 
-recommandations.add(
-"Objectif glycémique : 5 à 10 mmol/L"
-);
+recommandationsGenerales += `
+<li>Objectif glycémique : 5 à 10 mmol/L</li>
+`;
 
 let html = "";
 
@@ -512,26 +522,38 @@ ${traitements.map(t => `<li>${t}</li>`).join("")}
 </ul>
 
 <h3 class="section-title">
-Conduite à tenir
+Conduite à tenir par médicament
+</h3>
+
+<div class="success">
+${recommandationsParMedicament}
+</div>
+
+<h3 class="section-title">
+Alertes par médicament
+</h3>
+
+<div class="alert">
+${alertesParMedicament}
+</div>
+
+<h3 class="section-title">
+Recommandations générales
 </h3>
 
 <div class="success">
 <ul>
-${Array.from(recommandations)
-.map(r => `<li>${r}</li>`)
-.join("")}
+${recommandationsGenerales}
 </ul>
 </div>
 
 <h3 class="section-title">
-Alertes
+Alertes générales
 </h3>
 
 <div class="alert">
 <ul>
-${Array.from(alertes)
-.map(a => `<li>${a}</li>`)
-.join("")}
+${alertesGenerales}
 </ul>
 </div>
 
