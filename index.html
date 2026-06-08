@@ -558,31 +558,176 @@ const { jsPDF } = window.jspdf;
 
 const doc = new jsPDF();
 
-const texte =
-document.getElementById("resultat")
-.innerText;
+const typeDiabete =
+document.getElementById("typeDiabete").value;
 
-let lignes =
-doc.splitTextToSize(
-texte,
-180
+const hba1c =
+document.getElementById("hba1c").value || "Non renseignée";
+
+const intervention =
+document.getElementById("intervention").value;
+
+const traitements =
+Array.from(
+document.querySelectorAll(".traitement")
+)
+.map(x => x.value.trim().toUpperCase())
+.filter(x => x !== "");
+
+const recommandations = [];
+const alertes = [];
+
+traitements.forEach(traitement => {
+
+if(medicaments[traitement]){
+
+medicaments[traitement]
+.recommandations
+.forEach(r => {
+if(!recommandations.includes(r))
+recommandations.push(r);
+});
+
+medicaments[traitement]
+.alertes
+.forEach(a => {
+if(!alertes.includes(a))
+alertes.push(a);
+});
+
+}
+
+});
+
+if(typeDiabete==="DT1"){
+alertes.push(
+"Ne jamais arrêter l'insuline basale"
+);
+}
+
+recommandations.push(
+"Objectif glycémique : 5 à 10 mmol/L"
 );
 
-doc.setFontSize(16);
+let y = 15;
 
+doc.setFontSize(16);
 doc.text(
 "RECOMMANDATIONS DIABETE PERI-OPERATOIRE",
 10,
-15
+y
 );
 
-doc.setFontSize(10);
+y += 15;
+
+doc.setFontSize(12);
 
 doc.text(
-lignes,
+"Type de diabete : " + typeDiabete,
 10,
-30
+y
 );
+
+y += 10;
+
+doc.text(
+"HbA1c : " + hba1c,
+10,
+y
+);
+
+y += 10;
+
+doc.text(
+"Intervention : " + intervention,
+10,
+y
+);
+
+y += 15;
+
+doc.setFontSize(14);
+doc.text(
+"TRAITEMENTS",
+10,
+y
+);
+
+y += 10;
+
+doc.setFontSize(12);
+
+traitements.forEach(t => {
+
+doc.text(
+"• " + t,
+15,
+y
+);
+
+y += 8;
+
+});
+
+y += 5;
+
+doc.setFontSize(14);
+doc.text(
+"CONDUITE A TENIR",
+10,
+y
+);
+
+y += 10;
+
+doc.setFontSize(12);
+
+recommandations.forEach(r => {
+
+doc.text(
+"• " + r,
+15,
+y
+);
+
+y += 8;
+
+if(y>270){
+doc.addPage();
+y=20;
+}
+
+});
+
+y += 5;
+
+doc.setFontSize(14);
+doc.text(
+"ALERTES",
+10,
+y
+);
+
+y += 10;
+
+doc.setFontSize(12);
+
+alertes.forEach(a => {
+
+doc.text(
+"• " + a,
+15,
+y
+);
+
+y += 8;
+
+if(y>270){
+doc.addPage();
+y=20;
+}
+
+});
 
 doc.save(
 "recommandations_diabete.pdf"
