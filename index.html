@@ -173,6 +173,7 @@ placeholder="Ex : 7.2"
 <select id="intervention">
 <option>1 repas jeûné ou moins</option>
 <option>2 repas jeûnés ou plus</option>
+<option>≥ 2 repas jeûnés avec jeûne prolongé</option>
 <option>Urgence</option>
 </select>
 
@@ -546,9 +547,6 @@ document.getElementById("hba1c").value;
 const intervention =
 document.getElementById("intervention").value;
 
-const jeuneProlonge =
-document.getElementById("jeuneProlonge").checked;
-
 const pompeInsuline =
 document.getElementById("pompeInsuline").checked;
 
@@ -711,14 +709,6 @@ if(typeDiabete === "DT1"){
 
 alertesGenerales += `
 <li>DT1 : ne jamais arrêter l'insuline basale</li>
-`;
-
-}
-
-if(jeuneProlonge){
-
-recommandationsGenerales += `
-<li>Jeûne prolongé : prévoir apport glucosé IV selon protocole</li>
 `;
 
 }
