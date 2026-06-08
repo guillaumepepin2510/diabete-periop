@@ -364,6 +364,8 @@ alertes:[]
 
 };
 
+ const listeMedicaments = Object.keys(medicaments);
+
 /* ==========================
    AJOUT TRAITEMENT
    ========================== */
@@ -385,6 +387,7 @@ div.innerHTML = `
 <input
 type="text"
 class="traitement"
+list="listeMedicaments"
 placeholder="Nom du médicament"
 />
 `;
