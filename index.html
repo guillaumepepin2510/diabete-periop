@@ -469,30 +469,6 @@ recommandations:[
 alertes:[]
 },
 
-"HUMALOG":{
-classe:"INSULINE RAPIDE",
-recommandations:[],
-alertes:[]
-},
-
-"NOVORAPID":{
-classe:"INSULINE RAPIDE",
-recommandations:[],
-alertes:[]
-},
-
-"FIASP":{
-classe:"INSULINE RAPIDE",
-recommandations:[],
-alertes:[]
-},
-
-"APIDRA":{
-classe:"INSULINE RAPIDE",
-recommandations:[],
-alertes:[]
-}
-
 };
 
  const listeMedicaments = Object.keys(medicaments);
@@ -546,11 +522,13 @@ const pompeInsuline =
 document.getElementById("pompeInsuline").checked;
 
 const traitements =
+[...new Set(
 Array.from(
 document.querySelectorAll(".traitement")
 )
 .map(x => x.value.trim().toUpperCase())
-.filter(x => x !== "");
+.filter(x => x !== "")
+)];
 
 let recommandationsParMedicament = "";
 let alertesParMedicament = "";
