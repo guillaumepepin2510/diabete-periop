@@ -656,54 +656,40 @@ ${traitements.map(t => `<li>${t}</li>`).join("")}
 </ul>
 
 <h3 class="section-title">
-Conduite à tenir par médicament
+Recommandations
 </h3>
 
 <div class="success">
+
 ${recommandationsParMedicament}
-</div>
 
-<h3 class="section-title">
-Alertes par médicament
-</h3>
-
-<div class="alert">
-${alertesParMedicament}
-</div>
-
-<h3 class="section-title">
-Conduite à tenir personnalisée
-</h3>
-
-<div class="success">
 <ul>
 ${conduitePersonnalisee}
-</ul>
-</div>
-
-<h3 class="section-title">
-Recommandations générales
-</h3>
-
-<div class="success">
-<ul>
 ${recommandationsGenerales}
 </ul>
+
 </div>
 
 <h3 class="section-title">
-Alertes générales
+Alertes
 </h3>
 
 <div class="alert">
+
+${alertesParMedicament}
+
 <ul>
 ${alertesGenerales}
 </ul>
+
 </div>
 
 <div class="footer">
 Application Diabète Péri-Opératoire
 </div>
+
+</div>
+`;
 
 </div>
 `;
