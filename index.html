@@ -568,6 +568,136 @@ let alertesGenerales = "";
 
 let conduitePersonnalisee = "";
 
+let protocoleJourJ = "";
+
+const presenceInsulineBasale =
+traitements.includes("LANTUS")
+||
+traitements.includes("TOUJEO")
+||
+traitements.includes("TRESIBA")
+||
+traitements.includes("LEVEMIR")
+||
+traitements.includes("ABASAGLAR")
+||
+traitements.includes("XULTOPHY");
+
+if(
+typeDiabete === "DT1"
+&&
+intervention.includes("1 repas")
+){
+
+protocoleJourJ += `
+<li>Glycémie capillaire avant départ au bloc</li>
+<li>Maintien impératif de l'insuline basale</li>
+<li>Glycémie capillaire en SSPI</li>
+`;
+
+}
+
+if(
+typeDiabete === "DT1"
+&&
+intervention.includes("2 repas")
+){
+
+protocoleJourJ += `
+<li>Glycémie capillaire avant départ au bloc</li>
+<li>Glycémie capillaire toutes les 3 à 4 heures</li>
+<li>Maintien impératif de l'insuline basale</li>
+<li>Prévoir G10%</li>
+<li>Débit selon glycémie du jour J :
+<ul>
+<li>40 mL/h si glycémie &lt; 3 g/L</li>
+<li>60 mL/h si glycémie &lt; 0,9 g/L</li>
+</ul>
+</li>
+<li>Glycémie capillaire en SSPI</li>
+`;
+
+}
+
+if(
+typeDiabete === "DT2"
+&&
+!presenceInsulineBasale
+&&
+intervention.includes("1 repas")
+){
+
+protocoleJourJ += `
+<li>Glycémie capillaire avant départ au bloc</li>
+<li>Glycémie capillaire en SSPI</li>
+<li>Pas de perfusion glucosée systématique</li>
+`;
+
+}
+
+if(
+typeDiabete === "DT2"
+&&
+!presenceInsulineBasale
+&&
+intervention.includes("jeûne prolongé")
+){
+
+protocoleJourJ += `
+<li>Glycémie capillaire avant départ au bloc</li>
+<li>Glycémie capillaire toutes les 3 à 4 heures</li>
+<li>Prévoir G10% si jeûne prolongé</li>
+<li>Débit selon glycémie du jour J :
+<ul>
+<li>40 mL/h si glycémie &lt; 3 g/L</li>
+<li>60 mL/h si glycémie &lt; 0,9 g/L</li>
+</ul>
+</li>
+<li>Glycémie capillaire en SSPI</li>
+`;
+
+}
+
+if(
+typeDiabete === "DT2"
+&&
+presenceInsulineBasale
+&&
+intervention.includes("1 repas")
+){
+
+protocoleJourJ += `
+<li>Comme DT1 avec 1 repas jeûné</li>
+<li>Pas de prise des ADO le matin</li>
+`;
+
+}
+
+if(
+typeDiabete === "DT2"
+&&
+presenceInsulineBasale
+&&
+intervention.includes("2 repas")
+){
+
+protocoleJourJ += `
+<li>Glycémie capillaire avant départ au bloc</li>
+<li>Glycémie capillaire toutes les 3 à 4 heures</li>
+<li>Maintien de l'insuline basale</li>
+<li>Pas de prise des ADO</li>
+<li>Prévoir G10%</li>
+<li>Débit selon glycémie du jour J :
+<ul>
+<li>40 mL/h si glycémie &lt; 3 g/L</li>
+<li>60 mL/h si glycémie &lt; 0,9 g/L</li>
+</ul>
+</li>
+<li>Glycémie capillaire en SSPI</li>
+`;
+
+}
+
 if(
 traitements.includes("METFORMINE")
 &&
@@ -747,6 +877,16 @@ ${conduitePersonnalisee}
 ${recommandationsGenerales}
 </ul>
 
+</div>
+
+<h3 class="section-title">
+Protocole Jour J
+</h3>
+
+<div class="success">
+<ul>
+${protocoleJourJ}
+</ul>
 </div>
 
 <h3 class="section-title">
