@@ -359,6 +359,30 @@ recommandations:[
 "Maintien de l'insuline basale"
 ],
 alertes:[]
+},
+
+"HUMALOG":{
+classe:"INSULINE RAPIDE",
+recommandations:[],
+alertes:[]
+},
+
+"NOVORAPID":{
+classe:"INSULINE RAPIDE",
+recommandations:[],
+alertes:[]
+},
+
+"FIASP":{
+classe:"INSULINE RAPIDE",
+recommandations:[],
+alertes:[]
+},
+
+"APIDRA":{
+classe:"INSULINE RAPIDE",
+recommandations:[],
+alertes:[]
 }
 
 };
@@ -481,6 +505,46 @@ intervention.includes("2 repas")
 
 recommandationsGenerales += `
 <li>METFORMINE : arrêt du traitement pendant la période de jeûne</li>
+`;
+
+}
+
+if(
+(
+traitements.includes("HUMALOG")
+||
+traitements.includes("NOVORAPID")
+||
+traitements.includes("FIASP")
+||
+traitements.includes("APIDRA")
+)
+&&
+intervention.includes("1 repas")
+){
+
+recommandationsGenerales += `
+<li>INSULINE RAPIDE : supprimer la dose correspondant au repas jeûné</li>
+`;
+
+}
+
+if(
+(
+traitements.includes("HUMALOG")
+||
+traitements.includes("NOVORAPID")
+||
+traitements.includes("FIASP")
+||
+traitements.includes("APIDRA")
+)
+&&
+intervention.includes("2 repas")
+){
+
+recommandationsGenerales += `
+<li>INSULINE RAPIDE : supprimer les doses correspondant aux repas jeûnés</li>
 `;
 
 }
