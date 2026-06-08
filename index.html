@@ -222,7 +222,135 @@ style="display:none;">
    BASE MEDICAMENTEUSE
    ========================== */
 
-const medicaments = {};
+const medicaments = {
+
+"OZEMPIC":{
+classe:"GLP1",
+recommandations:[
+"Ne pas arrêter le traitement",
+"Ne pas prolonger le jeûne",
+"Rechercher une gastroparésie",
+"Échographie gastrique recommandée",
+"ISR si échographie impossible"
+],
+alertes:[
+"Risque de gastroparésie"
+]
+},
+
+"TRULICITY":{
+classe:"GLP1",
+recommandations:[
+"Ne pas arrêter le traitement",
+"Ne pas prolonger le jeûne",
+"Rechercher une gastroparésie",
+"Échographie gastrique recommandée",
+"ISR si échographie impossible"
+],
+alertes:[
+"Risque de gastroparésie"
+]
+},
+
+"WEGOVY":{
+classe:"GLP1",
+recommandations:[
+"Ne pas arrêter le traitement",
+"Ne pas prolonger le jeûne",
+"Rechercher une gastroparésie",
+"Échographie gastrique recommandée",
+"ISR si échographie impossible"
+],
+alertes:[
+"Risque de gastroparésie"
+]
+},
+
+"FORXIGA":{
+classe:"SGLT2",
+recommandations:[
+"Dernière prise J-3",
+"Cétonémie si arrêt inférieur à 3 jours"
+],
+alertes:[
+"Risque d'acidocétose euglycémique"
+]
+},
+
+"JARDIANCE":{
+classe:"SGLT2",
+recommandations:[
+"Dernière prise J-3",
+"Cétonémie si arrêt inférieur à 3 jours"
+],
+alertes:[
+"Risque d'acidocétose euglycémique"
+]
+},
+
+"XIGDUO":{
+classe:"SGLT2",
+recommandations:[
+"Dernière prise J-3",
+"Cétonémie si arrêt inférieur à 3 jours"
+],
+alertes:[
+"Risque d'acidocétose euglycémique"
+]
+},
+
+"SYNJARDY":{
+classe:"SGLT2",
+recommandations:[
+"Dernière prise J-3",
+"Cétonémie si arrêt inférieur à 3 jours"
+],
+alertes:[
+"Risque d'acidocétose euglycémique"
+]
+},
+
+"METFORMINE":{
+classe:"BIGUANIDE",
+recommandations:[
+"Suivre protocole standard"
+],
+alertes:[]
+},
+
+"JANUVIA":{
+classe:"DPP4",
+recommandations:[
+"Suivre protocole standard"
+],
+alertes:[]
+},
+
+"LANTUS":{
+classe:"INSULINE BASALE",
+recommandations:[
+"Maintien de l'insuline basale"
+],
+alertes:[]
+},
+
+"TOUJEO":{
+classe:"INSULINE BASALE",
+recommandations:[
+"Maintien de l'insuline basale"
+],
+alertes:[]
+},
+
+"TRESIBA":{
+classe:"INSULINE BASALE",
+recommandations:[
+"Maintien de l'insuline basale"
+],
+alertes:[]
+}
+
+};
 
 /* ==========================
    AJOUT TRAITEMENT
@@ -258,9 +386,154 @@ container.appendChild(div);
    ========================== */
 
 function genererRecommandations(){
-alert(
-"Bloc 2 à ajouter ensuite"
+
+const typeDiabete =
+document.getElementById("typeDiabete").value;
+
+const hba1c =
+document.getElementById("hba1c").value;
+
+const intervention =
+document.getElementById("intervention").value;
+
+const jeuneProlonge =
+document.getElementById("jeuneProlonge").checked;
+
+const pompeInsuline =
+document.getElementById("pompeInsuline").checked;
+
+const traitements =
+Array.from(
+document.querySelectorAll(".traitement")
+)
+.map(x => x.value.trim().toUpperCase())
+.filter(x => x !== "");
+
+const recommandations =
+new Set();
+
+const alertes =
+new Set();
+
+traitements.forEach(traitement => {
+
+if(medicaments[traitement]){
+
+medicaments[traitement]
+.recommandations
+.forEach(r =>
+recommandations.add(r)
 );
+
+medicaments[traitement]
+.alertes
+.forEach(a =>
+alertes.add(a)
+);
+
+}
+
+});
+
+if(typeDiabete === "DT1"){
+
+alertes.add(
+"Ne jamais arrêter l'insuline basale"
+);
+
+}
+
+if(jeuneProlonge){
+
+recommandations.add(
+"Apport glucosé IV à prévoir selon protocole"
+);
+
+}
+
+if(pompeInsuline){
+
+alertes.add(
+"Vérifier protocole spécifique pompe à insuline"
+);
+
+}
+
+recommandations.add(
+"Objectif glycémique : 5 à 10 mmol/L"
+);
+
+let html = "";
+
+html += `
+<div class="print-zone">
+
+<h2>
+Recommandations péri-opératoires
+</h2>
+
+<p>
+<strong>Type de diabète :</strong>
+${typeDiabete}
+</p>
+
+<p>
+<strong>HbA1c :</strong>
+${hba1c || "Non renseignée"}
+</p>
+
+<p>
+<strong>Intervention :</strong>
+${intervention}
+</p>
+
+<h3 class="section-title">
+Traitements
+</h3>
+
+<ul>
+${traitements.map(t => `<li>${t}</li>`).join("")}
+</ul>
+
+<h3 class="section-title">
+Conduite à tenir
+</h3>
+
+<div class="success">
+<ul>
+${Array.from(recommandations)
+.map(r => `<li>${r}</li>`)
+.join("")}
+</ul>
+</div>
+
+<h3 class="section-title">
+Alertes
+</h3>
+
+<div class="alert">
+<ul>
+${Array.from(alertes)
+.map(a => `<li>${a}</li>`)
+.join("")}
+</ul>
+</div>
+
+<div class="footer">
+Application Diabète Péri-Opératoire
+</div>
+
+</div>
+`;
+
+const resultat =
+document.getElementById("resultat");
+
+resultat.innerHTML = html;
+
+resultat.style.display =
+"block";
+
 }
 
 function exportPDF(){
