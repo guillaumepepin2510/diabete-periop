@@ -3,179 +3,270 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Diabète Péri-Opératoire</title>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <style>
+
 body{
-font-family:Arial,sans-serif;
-max-width:900px;
-margin:auto;
+font-family:Arial,Helvetica,sans-serif;
+background:#f2f4f7;
+margin:0;
 padding:20px;
-background:#f5f5f5;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+}
+
+h1{
+color:#005eb8;
+margin-bottom:25px;
 }
 
 .card{
 background:white;
 padding:20px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,.1);
+border-radius:12px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
 margin-bottom:20px;
 }
 
-h1{
-color:#0066cc;
+label{
+display:block;
+margin-top:12px;
+font-weight:bold;
 }
 
-select,input{
+input,
+select{
 width:100%;
 padding:10px;
 margin-top:5px;
-margin-bottom:15px;
+border:1px solid #ccc;
+border-radius:6px;
+box-sizing:border-box;
 }
 
 button{
-background:#0066cc;
+background:#005eb8;
 color:white;
-padding:10px 20px;
 border:none;
-border-radius:5px;
+padding:12px 18px;
+border-radius:6px;
 cursor:pointer;
+margin-top:15px;
+margin-right:10px;
 }
 
 button:hover{
-background:#004999;
+background:#00448c;
 }
 
-.result{
-background:#eef7ff;
-padding:15px;
-border-left:5px solid #0066cc;
+.traitement-row{
+display:flex;
+gap:10px;
+margin-bottom:10px;
+}
+
+.traitement-row input{
+flex:1;
+}
+
+.resultat{
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
 margin-top:20px;
 }
+
+.alert{
+background:#fff3cd;
+border-left:5px solid #ffc107;
+padding:10px;
+margin:10px 0;
+}
+
+.success{
+background:#e8f5e9;
+border-left:5px solid #28a745;
+padding:10px;
+margin:10px 0;
+}
+
+ul{
+margin-top:5px;
+}
+
+.print-zone{
+padding:15px;
+}
+
+.section-title{
+color:#005eb8;
+font-size:20px;
+margin-top:20px;
+}
+
+.checkbox-group{
+margin-top:10px;
+}
+
+.checkbox-group label{
+font-weight:normal;
+display:block;
+margin-top:5px;
+}
+
+.footer{
+margin-top:30px;
+font-size:12px;
+color:#666;
+}
+
 </style>
+
 </head>
 
 <body>
+
+<div class="container">
 
 <h1>Recommandations Diabète Péri-Opératoire</h1>
 
 <div class="card">
 
 <label>Type de diabète</label>
-<select id="diabete">
-<option>DT1</option>
-<option selected>DT2</option>
+
+<select id="typeDiabete">
+<option value="DT1">DT1</option>
+<option value="DT2" selected>DT2</option>
 </select>
 
-<label>Médicament</label>
-<select id="medicament">
+<label>HbA1c (%) - Facultatif</label>
 
-<option>OZEMPIC</option>
-<option>TRULICITY</option>
-<option>WEGOVY</option>
-
-<option>FORXIGA</option>
-<option>JARDIANCE</option>
-<option>XIGDUO</option>
-<option>SYNJARDY</option>
-
-<option>METFORMINE</option>
-<option>JANUVIA</option>
-<option>DIAMICRON</option>
-
-<option>LANTUS</option>
-<option>TOUJEO</option>
-<option>TRESIBA</option>
-
-</select>
+<input
+type="number"
+step="0.1"
+id="hba1c"
+placeholder="Ex : 7.2"
+/>
 
 <label>Type d'intervention</label>
+
 <select id="intervention">
 <option>≤ 1 repas jeûné</option>
 <option>≥ 2 repas jeûnés</option>
 <option>Urgence</option>
 </select>
 
-<button onclick="generer()">Générer</button>
+<div class="checkbox-group">
 
-<div id="resultat"></div>
+<label>
+<input type="checkbox" id="jeuneProlonge">
+ Jeûne prolongé
+</label>
+
+<label>
+<input type="checkbox" id="pompeInsuline">
+ Pompe à insuline
+</label>
+
+</div>
+
+<h2>Traitements</h2>
+
+<div id="traitementsContainer">
+
+<div class="traitement-row">
+<input
+type="text"
+class="traitement"
+placeholder="Ex : Ozempic, Jardiance, Metformine"
+/>
+</div>
+
+</div>
+
+<button onclick="ajouterTraitement()">
++ Ajouter un traitement
+</button>
+
+<br>
+
+<button onclick="genererRecommandations()">
+Générer les recommandations
+</button>
+
+<button onclick="exportPDF()">
+Exporter PDF
+</button>
+
+</div>
+
+<div
+id="resultat"
+class="resultat"
+style="display:none;">
+</div>
 
 </div>
 
 <script>
 
-function generer(){
+/* ==========================
+   BASE MEDICAMENTEUSE
+   ========================== */
 
-const med=document.getElementById("medicament").value;
-const dt=document.getElementById("diabete").value;
+const medicaments = {};
 
-let texte="";
+/* ==========================
+   AJOUT TRAITEMENT
+   ========================== */
 
-if(["OZEMPIC","TRULICITY","WEGOVY"].includes(med)){
+function ajouterTraitement(){
 
-texte=`
-<h2>Agoniste GLP1</h2>
+const container =
+document.getElementById(
+"traitementsContainer"
+);
 
-<ul>
-<li>Ne pas arrêter le traitement</li>
-<li>Ne pas prolonger le jeûne</li>
-<li>Rechercher une gastroparésie</li>
-<li>Échographie gastrique recommandée</li>
-<li>ISR si échographie impossible</li>
-</ul>
+const div =
+document.createElement("div");
+
+div.className =
+"traitement-row";
+
+div.innerHTML = `
+<input
+type="text"
+class="traitement"
+placeholder="Nom du médicament"
+/>
 `;
+
+container.appendChild(div);
 
 }
 
-else if(["FORXIGA","JARDIANCE","XIGDUO","SYNJARDY"].includes(med)){
+/* ==========================
+   FONCTIONS V2
+   ========================== */
 
-texte=`
-<h2>Inhibiteur SGLT2</h2>
-
-<ul>
-<li>Dernière prise J-3 avant intervention</li>
-<li>Risque d'acidocétose euglycémique</li>
-<li>Cétonémie si arrêt inférieur à 3 jours</li>
-</ul>
-`;
-
+function genererRecommandations(){
+alert(
+"Bloc 2 à ajouter ensuite"
+);
 }
 
-else if(["LANTUS","TOUJEO","TRESIBA"].includes(med)){
-
-texte=`
-<h2>Insuline basale</h2>
-
-<ul>
-<li>Ne jamais arrêter chez DT1</li>
-<li>Maintien de l'insuline basale</li>
-</ul>
-`;
-
-}
-
-else{
-
-texte=`
-<h2>Traitement oral</h2>
-
-<ul>
-<li>Suivre protocole standard</li>
-</ul>
-`;
-
-}
-
-if(dt==="DT1"){
-texte += `
-<p><strong>ALERTE DT1 :</strong>
-Ne jamais interrompre l'insuline basale.</p>
-`;
-}
-
-document.getElementById("resultat").innerHTML=
-`<div class="result">${texte}</div>`;
-
+function exportPDF(){
+alert(
+"Bloc PDF à ajouter ensuite"
+);
 }
 
 </script>
