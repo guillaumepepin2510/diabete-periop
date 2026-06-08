@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diabète Péri-Opératoire</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+max-width:900px;
+margin:auto;
+padding:20px;
+background:#f5f5f5;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,.1);
+margin-bottom:20px;
+}
+
+h1{
+color:#0066cc;
+}
+
+select,input{
+width:100%;
+padding:10px;
+margin-top:5px;
+margin-bottom:15px;
+}
+
+button{
+background:#0066cc;
+color:white;
+padding:10px 20px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+button:hover{
+background:#004999;
+}
+
+.result{
+background:#eef7ff;
+padding:15px;
+border-left:5px solid #0066cc;
+margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Recommandations Diabète Péri-Opératoire</h1>
+
+<div class="card">
+
+<label>Type de diabète</label>
+<select id="diabete">
+<option>DT1</option>
+<option selected>DT2</option>
+</select>
+
+<label>Médicament</label>
+<select id="medicament">
+
+<option>OZEMPIC</option>
+<option>TRULICITY</option>
+<option>WEGOVY</option>
+
+<option>FORXIGA</option>
+<option>JARDIANCE</option>
+<option>XIGDUO</option>
+<option>SYNJARDY</option>
+
+<option>METFORMINE</option>
+<option>JANUVIA</option>
+<option>DIAMICRON</option>
+
+<option>LANTUS</option>
+<option>TOUJEO</option>
+<option>TRESIBA</option>
+
+</select>
+
+<label>Type d'intervention</label>
+<select id="intervention">
+<option>≤ 1 repas jeûné</option>
+<option>≥ 2 repas jeûnés</option>
+<option>Urgence</option>
+</select>
+
+<button onclick="generer()">Générer</button>
+
+<div id="resultat"></div>
+
+</div>
+
+<script>
+
+function generer(){
+
+const med=document.getElementById("medicament").value;
+const dt=document.getElementById("diabete").value;
+
+let texte="";
+
+if(["OZEMPIC","TRULICITY","WEGOVY"].includes(med)){
+
+texte=`
+<h2>Agoniste GLP1</h2>
+
+<ul>
+<li>Ne pas arrêter le traitement</li>
+<li>Ne pas prolonger le jeûne</li>
+<li>Rechercher une gastroparésie</li>
+<li>Échographie gastrique recommandée</li>
+<li>ISR si échographie impossible</li>
+</ul>
+`;
+
+}
+
+else if(["FORXIGA","JARDIANCE","XIGDUO","SYNJARDY"].includes(med)){
+
+texte=`
+<h2>Inhibiteur SGLT2</h2>
+
+<ul>
+<li>Dernière prise J-3 avant intervention</li>
+<li>Risque d'acidocétose euglycémique</li>
+<li>Cétonémie si arrêt inférieur à 3 jours</li>
+</ul>
+`;
+
+}
+
+else if(["LANTUS","TOUJEO","TRESIBA"].includes(med)){
+
+texte=`
+<h2>Insuline basale</h2>
+
+<ul>
+<li>Ne jamais arrêter chez DT1</li>
+<li>Maintien de l'insuline basale</li>
+</ul>
+`;
+
+}
+
+else{
+
+texte=`
+<h2>Traitement oral</h2>
+
+<ul>
+<li>Suivre protocole standard</li>
+</ul>
+`;
+
+}
+
+if(dt==="DT1"){
+texte += `
+<p><strong>ALERTE DT1 :</strong>
+Ne jamais interrompre l'insuline basale.</p>
+`;
+}
+
+document.getElementById("resultat").innerHTML=
+`<div class="result">${texte}</div>`;
+
+}
+
+</script>
+
+</body>
+</html>
