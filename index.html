@@ -553,9 +553,41 @@ resultat.style.display =
 }
 
 function exportPDF(){
-alert(
-"Bloc PDF à ajouter ensuite"
+
+const { jsPDF } = window.jspdf;
+
+const doc = new jsPDF();
+
+const texte =
+document.getElementById("resultat")
+.innerText;
+
+let lignes =
+doc.splitTextToSize(
+texte,
+180
 );
+
+doc.setFontSize(16);
+
+doc.text(
+"RECOMMANDATIONS DIABETE PERI-OPERATOIRE",
+10,
+15
+);
+
+doc.setFontSize(10);
+
+doc.text(
+lignes,
+10,
+30
+);
+
+doc.save(
+"recommandations_diabete.pdf"
+);
+
 }
 
 </script>
