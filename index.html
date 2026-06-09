@@ -705,7 +705,9 @@ protocoleJourJ += `
 
 <li><strong>Pendant le jeûne :</strong> glycémie capillaire toutes les 3 à 4 heures</li>
 
+${!pompeSeule ? `
 <li>Maintien de l'insuline basale</li>
+` : ""}
 `;
 
 if(pompeInsuline){
