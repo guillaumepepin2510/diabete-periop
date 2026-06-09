@@ -1350,6 +1350,28 @@ y=20;
 
 });
 
+y += 15;
+
+doc.setFontSize(8);
+
+doc.setTextColor(120);
+
+doc.text(
+"Base sur : Prise en charge du patient diabetique en peri-operatoire - SFAR 2025",
+10,
+y
+);
+
+y += 5;
+
+doc.text(
+"Mise a jour : juin 2026",
+10,
+y
+);
+
+doc.setTextColor(0);
+
 doc.save(
 "recommandations_diabete.pdf"
 );
