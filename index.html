@@ -869,6 +869,31 @@ DT1 : maintenir impérativement une insuline basale
 `;
 
 }
+
+if(
+pompeInsuline
+){
+
+conduitePersonnalisee += `
+<li>
+POMPE À INSULINE : pas d'arrêt avant l'intervention
+</li>
+
+<li>
+Arrêt de la pompe à l'arrivée au bloc
+</li>
+
+<li>
+Maintien possible si :
+<ul>
+<li>intervention courte (&lt; 2 h)</li>
+<li>dispositif visible et accessible</li>
+<li>avis diabétologue préalable pour adaptation des doses d'insuline</li>
+</ul>
+</li>
+`;
+
+}
  
 if(typeDiabete === "DT1"){
 
