@@ -1143,26 +1143,30 @@ document.querySelectorAll(".traitement")
 .map(x => x.value.trim().toUpperCase())
 .filter(x => x !== "");
 
-const recommandations = [];
-const alertes = [];
+let recommandationsParMedicament = [];
+let alertesParMedicament = [];
 
 traitements.forEach(traitement => {
 
 if(medicaments[traitement]){
 
-medicaments[traitement]
-.recommandations
-.forEach(r => {
-if(!recommandations.includes(r))
-recommandations.push(r);
+if(medicaments[traitement].recommandations.length){
+
+recommandationsParMedicament.push({
+nom: traitement,
+items: medicaments[traitement].recommandations
 });
 
-medicaments[traitement]
-.alertes
-.forEach(a => {
-if(!alertes.includes(a))
-alertes.push(a);
+}
+
+if(medicaments[traitement].alertes.length){
+
+alertesParMedicament.push({
+nom: traitement,
+items: medicaments[traitement].alertes
 });
+
+}
 
 }
 
