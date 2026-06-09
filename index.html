@@ -1305,15 +1305,74 @@ y += 10;
 
 doc.setFontSize(12);
 
-recommandations.forEach(r => {
+recommandationsParMedicament.forEach(med => {
+
+doc.setFont(
+"helvetica",
+"bold"
+);
 
 doc.text(
-"• " + r,
+med.nom,
 15,
 y
 );
 
 y += 8;
+
+doc.setFont(
+"helvetica",
+"normal"
+);
+
+med.items.forEach(item => {
+
+doc.text(
+"• " + item,
+20,
+y
+);
+
+y += 6;
+
+if(y>270){
+doc.addPage();
+y=20;
+}
+
+});
+
+y += 4;
+
+});
+
+doc.setFont(
+"helvetica",
+"bold"
+);
+
+doc.text(
+"RECOMMANDATIONS GENERALES",
+15,
+y
+);
+
+y += 8;
+
+doc.setFont(
+"helvetica",
+"normal"
+);
+
+recommandations.forEach(r => {
+
+doc.text(
+"• " + r,
+20,
+y
+);
+
+y += 6;
 
 if(y>270){
 doc.addPage();
