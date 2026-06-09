@@ -640,51 +640,49 @@ let conduitePersonnalisee = "";
 
 let protocoleJourJ = "";
 
-if(
-(
-traitements.includes("METFORMINE")
-||
-traitements.includes("GLUCOPHAGE")
-||
-traitements.includes("STAGID")
-)
-&&
-intervention.includes("1 repas")
-){
+const traitementsJeune = [
+"METFORMINE",
+"GLUCOPHAGE",
+"STAGID",
+"DIAMICRON",
+"AMAREL",
+"REPAGLINIDE"
+];
+
+traitementsJeune.forEach(traitement => {
+
+if(traitements.includes(traitement)){
+
+if(intervention.includes("1 repas")){
 
 recommandationsParMedicament += `
-<h4>METFORMINE</h4>
+<h4>${traitement}</h4>
 <ul>
-<li>Pas d'arrêt nécessaire</li>
+<li>
+Pas d'arrêt sauf si intervention longue (&gt; 2 h) :
+ne pas prendre le matin
+</li>
 </ul>
 `;
 
 }
 
-if(
-(
-traitements.includes("METFORMINE")
-||
-traitements.includes("GLUCOPHAGE")
-||
-traitements.includes("STAGID")
-)
-&&
-(
-intervention.includes("2 repas")
-||
-intervention.includes("jeûne prolongé")
-)
-){
+if(intervention.includes("2 repas")){
 
 recommandationsParMedicament += `
-<h4>METFORMINE</h4>
+<h4>${traitement}</h4>
 <ul>
-<li>Arrêt du traitement pendant la période de jeûne</li>
+<li>
+Arrêt pendant la période de jeûne
+</li>
 </ul>
 `;
 
 }
+
+}
+
+});
 
 const presenceInsulineBasale =
 traitements.includes("LANTUS")
