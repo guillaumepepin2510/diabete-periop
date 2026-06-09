@@ -533,6 +533,8 @@ document.querySelectorAll(".traitement")
 let recommandationsParMedicament = "";
 let alertesParMedicament = "";
 
+traitements.forEach(traitement => {
+
 if(
 medicaments[traitement]
 &&
@@ -550,7 +552,11 @@ ${medicaments[traitement].recommandations
 
 }
 
-if(medicaments[traitement].alertes.length){
+if(
+medicaments[traitement]
+&&
+medicaments[traitement].alertes.length > 0
+){
 
 alertesParMedicament += `
 <h4>${traitement}</h4>
@@ -560,8 +566,6 @@ ${medicaments[traitement].alertes
 .join("")}
 </ul>
 `;
-
-}
 
 }
 
