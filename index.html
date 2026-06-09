@@ -924,20 +924,44 @@ if(
 pompeInsuline
 ){
 
+if(
+intervention.includes("1 repas")
+){
+
 conduitePersonnalisee += `
 <li>
 POMPE À INSULINE : pas d'arrêt avant l'intervention
 </li>
 
 <li>
-Si intervention ≥ 2 repas jeûnés :
+Arrêt de la pompe à l'arrivée au bloc sauf si :
 <ul>
-<li>arrêt possible à l'arrivée au bloc</li>
-<li>si dispositif visible et accessible</li>
+<li>intervention courte (&le; 2 h)</li>
+<li>dispositif visible et accessible en per-opératoire</li>
+</ul>
+</li>
+`;
+}
+
+if(
+intervention.includes("2 repas")
+){
+
+conduitePersonnalisee += `
+<li>
+POMPE À INSULINE : pas d'arrêt avant l'intervention
+</li>
+
+<li>
+Pompe à insuline : arrêt à l'arrivée au bloc sauf si :
+<ul>
+<li>intervention courte (&lt; 2 h)</li>
+<li>dispositif visible et accessible</li>
 <li>avis diabétologue pour adaptation des doses d'insuline</li>
 </ul>
 </li>
 `;
+}
 
 }
  
