@@ -1438,15 +1438,74 @@ y += 10;
 
 doc.setFontSize(12);
 
-alertes.forEach(a => {
+alertesParMedicament.forEach(med => {
+
+doc.setFont(
+"helvetica",
+"bold"
+);
 
 doc.text(
-"• " + a,
+med.nom,
 15,
 y
 );
 
 y += 8;
+
+doc.setFont(
+"helvetica",
+"normal"
+);
+
+med.items.forEach(item => {
+
+doc.text(
+"• " + item,
+20,
+y
+);
+
+y += 6;
+
+if(y>270){
+doc.addPage();
+y=20;
+}
+
+});
+
+y += 4;
+
+});
+
+doc.setFont(
+"helvetica",
+"bold"
+);
+
+doc.text(
+"ALERTES GENERALES",
+15,
+y
+);
+
+y += 8;
+
+doc.setFont(
+"helvetica",
+"normal"
+);
+
+alertes.forEach(a => {
+
+doc.text(
+"• " + a,
+20,
+y
+);
+
+y += 6;
 
 if(y>270){
 doc.addPage();
