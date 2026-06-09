@@ -579,7 +579,13 @@ let conduitePersonnalisee = "";
 let protocoleJourJ = "";
 
 if(
+(
 traitements.includes("METFORMINE")
+||
+traitements.includes("GLUCOPHAGE")
+||
+traitements.includes("STAGID")
+)
 &&
 intervention.includes("1 repas")
 ){
@@ -594,7 +600,13 @@ recommandationsParMedicament += `
 }
 
 if(
+(
 traitements.includes("METFORMINE")
+||
+traitements.includes("GLUCOPHAGE")
+||
+traitements.includes("STAGID")
+)
 &&
 (
 intervention.includes("2 repas")
