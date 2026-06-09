@@ -1206,29 +1206,35 @@ y = 30;
 
 doc.setFontSize(12);
 
-doc.text(
-"Type de diabete : " + typeDiabete,
+doc.setFillColor(240,240,240);
+
+doc.rect(
 10,
-y
+y-5,
+190,
+28,
+"F"
 );
 
-y += 10;
+doc.text(
+"Type de diabete : " + typeDiabete,
+15,
+y+3
+);
 
 doc.text(
 "HbA1c : " + hba1c,
-10,
-y
+15,
+y+11
 );
-
-y += 10;
 
 doc.text(
 "Intervention : " + intervention,
-10,
-y
+15,
+y+19
 );
 
-y += 15;
+y += 35;
 
 doc.setFontSize(14);
 doc.text(
