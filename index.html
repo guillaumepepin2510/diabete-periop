@@ -689,7 +689,11 @@ intervention.includes("1 repas")
 protocoleJourJ += `
 <li><strong>Avant départ au bloc :</strong> glycémie capillaire</li>
 
+${pompeSeule ? `
+<li>Pas d'arrêt de la pompe à insuline avant l'intervention</li>
+` : `
 <li>Maintien de l'insuline basale</li>
+`}
 
 <li><strong>À partir de 6h-7h :</strong></li>
 
