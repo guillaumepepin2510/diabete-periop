@@ -697,14 +697,37 @@ intervention.includes("2 repas")
 
 protocoleJourJ += `
 <li><strong>Avant départ au bloc :</strong> glycémie capillaire</li>
+
 <li><strong>Pendant le jeûne :</strong> glycémie capillaire toutes les 3 à 4 heures</li>
-<li>Maintien impératif de l'insuline basale</li>
-<li>À partir de 6h-7h :</li>
+
+<li>Maintien de l'insuline basale</li>
+`;
+
+if(pompeInsuline){
+
+protocoleJourJ += `
+<li>
+Si pompe à insuline :
+arrêt à l'arrivée au bloc sauf si :
+<ul>
+<li>intervention courte (&lt; 2 h)</li>
+<li>dispositif visible et accessible</li>
+<li>avis diabétologue préalable pour adaptation des doses</li>
+</ul>
+</li>
+`;
+}
+
+protocoleJourJ += `
+<li><strong>À partir de 6h-7h :</strong></li>
+
 <li>Perfusion G10%</li>
+
 <ul>
 <li>40 mL/h si glycémie &lt; 3 g/L</li>
 <li>60 mL/h si glycémie &lt; 0,9 g/L</li>
 </ul>
+
 <li><strong>Après intervention :</strong> glycémie capillaire en SSPI</li>
 `;
 
