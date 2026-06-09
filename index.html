@@ -704,36 +704,6 @@ protocoleJourJ += `
 }
 
 if(
-traitements.includes("METFORMINE")
-&&
-intervention.includes("1 repas")
-){
-
-recommandationsParMedicament += `
-<h4>METFORMINE</h4>
-<ul>
-<li>Pas d'arrêt nécessaire</li>
-</ul>
-`;
-
-}
-
-if(
-traitements.includes("METFORMINE")
-&&
-intervention.includes("2 repas")
-){
-
-recommandationsParMedicament += `
-<h4>METFORMINE</h4>
-<ul>
-<li>Arrêt du traitement pendant la période de jeûne</li>
-</ul>
-`;
-
-}
-
-if(
 (
 traitements.includes("HUMALOG")
 ||
