@@ -574,6 +574,44 @@ ${medicaments[traitement].alertes
 let recommandationsGenerales = "";
 let alertesGenerales = "";
 
+const hba1cValeur = parseFloat(
+hba1c.replace(",", ".")
+);
+
+if(!isNaN(hba1cValeur)){
+
+if(
+hba1cValeur < 5
+||
+hba1cValeur > 9
+){
+
+alertesGenerales += `
+<li>
+HbA1c ${hba1cValeur}% :
+chirurgie à différer si non urgente
+</li>
+`;
+
+}
+
+else if(
+(hba1cValeur >= 5 && hba1cValeur < 6)
+||
+(hba1cValeur >= 8 && hba1cValeur <= 9)
+){
+
+alertesGenerales += `
+<li>
+HbA1c ${hba1cValeur}% :
+avis diabétologue ou médecin traitant recommandé
+</li>
+`;
+
+}
+
+}
+
 let conduitePersonnalisee = "";
 
 let protocoleJourJ = "";
