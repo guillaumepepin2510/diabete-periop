@@ -299,6 +299,20 @@ alertes:[
 ]
 },
 
+ "MOUNJARO":{
+    classe:"GLP1",
+    recommandations:[
+        "Ne pas arrêter le traitement",
+        "Ne pas prolonger le jeûne",
+        "Rechercher une gastroparésie",
+        "Échographie gastrique recommandée",
+        "ISR si échographie impossible"
+    ],
+    alertes:[
+        "Risque de gastroparésie"
+    ]
+},
+
  "VICTOZA":{
 classe:"GLP1",
 recommandations:[
@@ -930,6 +944,8 @@ traitements.includes("WEGOVY")
 traitements.includes("VICTOZA")
 ||
 traitements.includes("XULTOPHY")
+||
+traitements.includes("MOUNJARO")
 ){
 
 conduitePersonnalisee += `
@@ -1202,6 +1218,7 @@ pdf.save(
 <option value="OZEMPIC">
 <option value="TRULICITY">
 <option value="WEGOVY">
+<option value="MOUNJARO">
 <option value="VICTOZA">
 <option value="XULTOPHY">
 
