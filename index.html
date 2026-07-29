@@ -562,6 +562,58 @@ alertes:[]
 };
 
  const listeMedicaments = Object.keys(medicaments);
+ const aliasMedicaments = {
+    // GLP1
+    "SEMAGLUTIDE":"OZEMPIC",
+    "LIRAGLUTIDE":"VICTOZA",
+    "DULAGLUTIDE":"TRULICITY",
+    "TIRZEPATIDE":"MOUNJARO",
+    "INSULINE DEGLUDEC + LIRAGLUTIDE":"XULTOPHY",
+
+    // SGLT2
+    "DAPAGLIFLOZINE":"FORXIGA",
+    "EMPAGLIFLOZINE":"JARDIANCE",
+    "CANAGLIFLOZINE":"INVOKANA",
+    "DAPAGLIFLOZINE + METFORMINE":"XIGDUO",
+    "EMPAGLIFLOZINE + METFORMINE":"SYNJARDY",
+
+    // DPP4
+    "SITAGLIPTINE":"JANUVIA",
+    "SITAGLIPTINE + METFORMINE":"JANUMET",
+
+    "VILDAGLIPTINE":"GALVUS",
+    "VILDAGLIPTINE + METFORMINE":"EUCREAS",
+
+    "ALOGLIPTINE":"VIPIDIA",
+    "ALOGLIPTINE + METFORMINE":"VIPDOMET",
+
+    "LINAGLIPTINE + METFORMINE":"JENTADUETO",
+
+    "SAXAGLIPTINE":"ONGLYZA",
+
+    // Biguanide
+    "METFORMINE":"METFORMINE",
+
+    // Sulfamides
+    "GLICLAZIDE":"DIAMICRON",
+    "GLIMEPIRIDE":"AMAREL",
+    "GLIBENCLAMIDE":"DAONIL",
+    "GLIPIZIDE":"MINIDIAB",
+
+    // Glinide
+    "REPAGLINIDE":"NOVONORM",
+
+    // Glitazone
+    "PIOGLITAZONE":"PIOGLITAZONE",
+
+    // Insulines
+    "INSULINE GLARGINE":"LANTUS",
+    "INSULINE DETEMIR":"LEVEMIR",
+    "INSULINE DEGLUDEC":"TRESIBA",
+    "INSULINE LISPRO":"HUMALOG",
+    "INSULINE ASPARTE":"NOVORAPID",
+    "INSULINE GLULISINE":"APIDRA"
+};
 
 /* ==========================
    AJOUT TRAITEMENT
@@ -616,7 +668,10 @@ const traitements =
 Array.from(
 document.querySelectorAll(".traitement")
 )
-.map(x => x.value.trim().toUpperCase())
+.map(x => {
+    let nom = x.value.trim().toUpperCase();
+    return aliasMedicaments[nom] || nom;
+})
 .filter(x => x !== "")
 )];
 
@@ -1278,53 +1333,114 @@ pdf.save(
 
 <datalist id="listeMedicaments">
 
+<!-- GLP1 -->
 <option value="OZEMPIC">
+<option value="SEMAGLUTIDE">
+
 <option value="TRULICITY">
+<option value="DULAGLUTIDE">
+
 <option value="WEGOVY">
+
 <option value="MOUNJARO">
+<option value="TIRZEPATIDE">
+
 <option value="VICTOZA">
+<option value="LIRAGLUTIDE">
+
 <option value="XULTOPHY">
+<option value="INSULINE DEGLUDEC + LIRAGLUTIDE">
 
+<!-- SGLT2 -->
 <option value="FORXIGA">
-<option value="JARDIANCE">
-<option value="INVOKANA">
-<option value="XIGDUO">
-<option value="SYNJARDY">
+<option value="DAPAGLIFLOZINE">
 
+<option value="JARDIANCE">
+<option value="EMPAGLIFLOZINE">
+
+<option value="INVOKANA">
+<option value="CANAGLIFLOZINE">
+
+<option value="XIGDUO">
+<option value="DAPAGLIFLOZINE + METFORMINE">
+
+<option value="SYNJARDY">
+<option value="EMPAGLIFLOZINE + METFORMINE">
+
+<!-- Biguanides -->
 <option value="METFORMINE">
 <option value="GLUCOPHAGE">
 <option value="STAGID">
+
+<!-- Sulfamides / Glinides / Glitazones -->
 <option value="DIAMICRON">
+<option value="GLICLAZIDE">
+
 <option value="AMAREL">
-<option value="REPAGLINIDE">
-<option value="PIOGLITAZONE">
+<option value="GLIMEPIRIDE">
+
 <option value="DAONIL">
+<option value="GLIBENCLAMIDE">
+
 <option value="MINIDIAB">
+<option value="GLIPIZIDE">
+
 <option value="GLIBENESE">
+
+<option value="REPAGLINIDE">
 <option value="NOVONORM">
 
-<option value="JANUVIA">
-<option value="JANUMET">
-<option value="EUCREAS">
-<option value="VIPIDIA">
-<option value="VIPDOMET">
-<option value="JENTADUETO">
-<option value="ONGLYZA">
-<option value="GALVUS">
+<option value="PIOGLITAZONE">
 
+<!-- DPP4 -->
+<option value="JANUVIA">
+<option value="SITAGLIPTINE">
+
+<option value="JANUMET">
+<option value="SITAGLIPTINE + METFORMINE">
+
+<option value="GALVUS">
+<option value="VILDAGLIPTINE">
+
+<option value="EUCREAS">
+<option value="VILDAGLIPTINE + METFORMINE">
+
+<option value="VIPIDIA">
+<option value="ALOGLIPTINE">
+
+<option value="VIPDOMET">
+<option value="ALOGLIPTINE + METFORMINE">
+
+<option value="JENTADUETO">
+<option value="LINAGLIPTINE + METFORMINE">
+
+<option value="ONGLYZA">
+<option value="SAXAGLIPTINE">
+
+<!-- Insulines basales -->
 <option value="LANTUS">
 <option value="TOUJEO">
-<option value="TRESIBA">
-<option value="LEVEMIR">
 <option value="ABASAGLAR">
+<option value="INSULINE GLARGINE">
 
+<option value="TRESIBA">
+<option value="INSULINE DEGLUDEC">
+
+<option value="LEVEMIR">
+<option value="INSULINE DETEMIR">
+
+<!-- Insulines rapides -->
 <option value="HUMALOG">
-<option value="NOVORAPID">
-<option value="FIASP">
-<option value="APIDRA">
+<option value="INSULINE LISPRO">
 
-<option value="UMULINE">
-<option value="ACTRAPID">
+<option value="NOVORAPID">
+<option value="INSULINE ASPARTE">
+
+<option value="FIASP">
+<option value="INSULINE ASPARTE">
+
+<option value="APIDRA">
+<option value="INSULINE GLULISINE">
 
 </datalist>
 
