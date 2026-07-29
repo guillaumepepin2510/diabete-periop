@@ -615,6 +615,55 @@ alertes:[]
     "INSULINE GLULISINE":"APIDRA"
 };
 
+const dciMedicaments = {
+    "OZEMPIC":"SEMAGLUTIDE",
+    "TRULICITY":"DULAGLUTIDE",
+    "WEGOVY":"SEMAGLUTIDE",
+    "MOUNJARO":"TIRZEPATIDE",
+    "VICTOZA":"LIRAGLUTIDE",
+    "XULTOPHY":"INSULINE DEGLUDEC + LIRAGLUTIDE",
+
+    "FORXIGA":"DAPAGLIFLOZINE",
+    "JARDIANCE":"EMPAGLIFLOZINE",
+    "INVOKANA":"CANAGLIFLOZINE",
+    "XIGDUO":"DAPAGLIFLOZINE + METFORMINE",
+    "SYNJARDY":"EMPAGLIFLOZINE + METFORMINE",
+
+    "JANUVIA":"SITAGLIPTINE",
+    "JANUMET":"SITAGLIPTINE + METFORMINE",
+    "GALVUS":"VILDAGLIPTINE",
+    "EUCREAS":"VILDAGLIPTINE + METFORMINE",
+    "VIPIDIA":"ALOGLIPTINE",
+    "VIPDOMET":"ALOGLIPTINE + METFORMINE",
+    "JENTADUETO":"LINAGLIPTINE + METFORMINE",
+    "ONGLYZA":"SAXAGLIPTINE",
+
+    "METFORMINE":"METFORMINE",
+    "GLUCOPHAGE":"METFORMINE",
+    "STAGID":"METFORMINE",
+
+    "DIAMICRON":"GLICLAZIDE",
+    "AMAREL":"GLIMEPIRIDE",
+    "DAONIL":"GLIBENCLAMIDE",
+    "MINIDIAB":"GLIPIZIDE",
+    "GLIBENESE":"GLIPIZIDE",
+
+    "NOVONORM":"REPAGLINIDE",
+    "REPAGLINIDE":"REPAGLINIDE",
+
+    "PIOGLITAZONE":"PIOGLITAZONE",
+
+    "LANTUS":"INSULINE GLARGINE",
+    "TOUJEO":"INSULINE GLARGINE",
+    "ABASAGLAR":"INSULINE GLARGINE",
+    "TRESIBA":"INSULINE DEGLUDEC",
+    "LEVEMIR":"INSULINE DETEMIR",
+    "HUMALOG":"INSULINE LISPRO",
+    "NOVORAPID":"INSULINE ASPARTE",
+    "FIASP":"INSULINE ASPARTE",
+    "APIDRA":"INSULINE GLULISINE"
+};
+
 /* ==========================
    AJOUT TRAITEMENT
    ========================== */
@@ -687,7 +736,7 @@ medicaments[traitement].recommandations.length > 0
 ){
 
 recommandationsParMedicament += `
-<h4>${traitement}</h4>
+<h4>${traitement}${dciMedicaments[traitement] ? ` (${dciMedicaments[traitement]})` : ""}</h4>
 <ul>
 ${medicaments[traitement].recommandations
 .map(r => `<li>${r}</li>`)
@@ -704,7 +753,7 @@ medicaments[traitement].alertes.length > 0
 ){
 
 alertesParMedicament += `
-<h4>${traitement}</h4>
+<h4>${traitement}${dciMedicaments[traitement] ? ` (${dciMedicaments[traitement]})` : ""}</h4>
 <ul>
 ${medicaments[traitement].alertes
 .map(a => `<li>${a}</li>`)
@@ -790,7 +839,7 @@ if(traitements.includes(traitement)){
 if(intervention.includes("1 repas")){
 
 recommandationsParMedicament += `
-<h4>${traitement}</h4>
+<h4>${traitement}${dciMedicaments[traitement] ? ` (${dciMedicaments[traitement]})` : ""}</h4>
 <ul>
 <li>
 Pas d'arrêt sauf si intervention longue (&gt; 2 h) :
@@ -804,7 +853,7 @@ ne pas prendre le matin
 if(intervention.includes("2 repas")){
 
 recommandationsParMedicament += `
-<h4>${traitement}</h4>
+<h4>${traitement}${dciMedicaments[traitement] ? ` (${dciMedicaments[traitement]})` : ""}</h4>
 <ul>
 <li>
 Arrêt pendant la période de jeûne
@@ -1172,7 +1221,9 @@ Traitements
 </h3>
 
 <ul>
-${traitements.map(t => `<li>${t}</li>`).join("")}
+${traitements.map(t =>
+`<li>${t}${dciMedicaments[t] ? ` (${dciMedicaments[t]})` : ""}</li>`
+).join("")}
 </ul>
 
 <h3 class="section-title">
