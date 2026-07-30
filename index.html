@@ -455,6 +455,14 @@ recommandations:[
 alertes:[]
 },
 
+"LYUMJEV":{
+classe:"INSULINE RAPIDE",
+recommandations:[
+"Supprimer les doses correspondant aux repas jeûnés"
+],
+alertes:[]
+},
+
 "NOVORAPID":{
 classe:"INSULINE RAPIDE",
 recommandations:[
@@ -661,7 +669,8 @@ const dciMedicaments = {
     "HUMALOG":"INSULINE LISPRO",
     "NOVORAPID":"INSULINE ASPARTE",
     "FIASP":"INSULINE ASPARTE",
-    "APIDRA":"INSULINE GLULISINE"
+    "APIDRA":"INSULINE GLULISINE",
+    "LYUMJEV":"INSULINE LISPRO"
 };
 
 /* ==========================
@@ -1047,6 +1056,8 @@ if(
 (
 traitements.includes("HUMALOG")
 ||
+traitements.includes("LYUMJEV")
+||
 traitements.includes("NOVORAPID")
 ||
 traitements.includes("FIASP")
@@ -1066,6 +1077,8 @@ recommandationsGenerales += `
 if(
 (
 traitements.includes("HUMALOG")
+||
+traitements.includes("LYUMJEV")
 ||
 traitements.includes("NOVORAPID")
 ||
@@ -1482,11 +1495,10 @@ pdf.save(
 
 <!-- Insulines rapides -->
 <option value="HUMALOG">
+<option value="LYUMJEV">
 <option value="INSULINE LISPRO">
 
 <option value="NOVORAPID">
-<option value="INSULINE ASPARTE">
-
 <option value="FIASP">
 <option value="INSULINE ASPARTE">
 
