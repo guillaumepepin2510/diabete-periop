@@ -409,6 +409,12 @@ recommandations:[],
 alertes:[]
 },
 
+"TRAJENTA":{
+    classe:"DPP4",
+    recommandations:[],
+    alertes:[]
+},
+
 "JANUMET":{
     classe:"DPP4",
     recommandations:[],
@@ -613,6 +619,8 @@ alertes:[]
 
     "SAXAGLIPTINE":"ONGLYZA",
 
+    "LINAGLIPTINE":"TRAJENTA",
+
     // Biguanide
     "METFORMINE":"METFORMINE",
 
@@ -659,6 +667,7 @@ const dciMedicaments = {
     "VIPDOMET":"ALOGLIPTINE + METFORMINE",
     "JENTADUETO":"LINAGLIPTINE + METFORMINE",
     "ONGLYZA":"SAXAGLIPTINE",
+    "TRAJENTA":"LINAGLIPTINE",
 
     "METFORMINE":"METFORMINE",
     "GLUCOPHAGE":"METFORMINE",
@@ -852,6 +861,7 @@ const traitementsJeune = [
 "DAONIL",
 "MINIDIAB",
 "GLIBENESE",
+"TRAJENTA",
 "NOVONORM",
 ];
 
@@ -1118,6 +1128,8 @@ traitements.includes("JARDIANCE")
 traitements.includes("SYNJARDY")
 ||
 traitements.includes("XIGDUO")
+||
+traitements.includes("INVOKANA")
 ){
 
 conduitePersonnalisee += `
@@ -1494,6 +1506,9 @@ pdf.save(
 
 <option value="ONGLYZA">
 <option value="SAXAGLIPTINE">
+
+<option value="TRAJENTA">
+<option value="LINAGLIPTINE">
 
 <!-- Insulines basales -->
 <option value="LANTUS">
