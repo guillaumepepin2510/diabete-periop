@@ -1279,6 +1279,43 @@ alertesGenerales += `
 
 }
 
+if(
+pompeInsuline
+||
+traitements.includes("LANTUS")
+||
+traitements.includes("TOUJEO")
+||
+traitements.includes("TRESIBA")
+||
+traitements.includes("LEVEMIR")
+||
+traitements.includes("ABASAGLAR")
+||
+traitements.includes("XULTOPHY")
+||
+traitements.includes("HUMALOG")
+||
+traitements.includes("LYUMJEV")
+||
+traitements.includes("NOVORAPID")
+||
+traitements.includes("FIASP")
+||
+traitements.includes("APIDRA")
+){
+
+alertesGenerales += `
+<li><strong>Tout au long de la prise en charge :</strong></li>
+<ul>
+<li>Glycémie &gt; 3 g/L : 6 UI d'insuline rapide SC + recherche de cétonémie</li>
+<li>Glycémie &lt; 0,9 g/L : prévenir le médecin</li>
+<li>Glycémie &lt; 0,6 g/L : prévenir le médecin + 15 g de sucre per os</li>
+</ul>
+`;
+
+}
+
 recommandationsGenerales += `
 <li>Objectif glycémique : 5 à 10 mmol/L</li>
 `;
