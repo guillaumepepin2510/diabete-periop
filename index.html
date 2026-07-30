@@ -6,6 +6,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Diabète Péri-Opératoire</title>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3BB0P5ZVS9"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-3BB0P5ZVS9');
+</script>
+
 <meta name="description" content="Recommandations péri-opératoires des traitements du diabète">
 
 <link rel="manifest" href="manifest.webmanifest">
@@ -732,6 +743,10 @@ container.appendChild(div);
 
 function genererRecommandations(){
 
+ if (typeof gtag === "function") {
+    gtag('event', 'generation_recommandation');
+}
+
 const typeDiabete =
 document.getElementById("typeDiabete").value;
 
@@ -1324,7 +1339,7 @@ color:#666;
 
 Prise en charge du patient diabétique en péri-opératoire – SFAR 2025<br>
 
-Mise à jour de l'application : juin 2026
+Mise à jour de l'application : juillet 2026
 
 </div>
 
